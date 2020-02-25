@@ -152,7 +152,7 @@ class Alert:
     def get_id(self, short: bool = False) -> str:
         return self.id[:8] if short else self.id
 
-    def get_body(self, history: bool = True) -> Dict[str, Any]:
+    def get_body(self, history: bool = False) -> Dict[str, Any]:
         body = self.serialize
         body.update({
             key: DateTime.iso8601(body[key]) for key in ['createTime', 'lastReceiveTime', 'receiveTime', 'updateTime'] if body[key]

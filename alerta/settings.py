@@ -6,7 +6,7 @@
 #
 # Further information on settings can be found at https://docs.alerta.io
 
-from typing import Any, Dict, List  # noqa
+from typing import Any, Dict, List, Tuple  # noqa
 
 DEBUG = False
 
@@ -71,8 +71,8 @@ SIGNUP_ENABLED = True
 
 HMAC_AUTH_CREDENTIALS = [
     # {
-    #     'id': 'AKID001',  # access key id
-    #     'key': 'supersecret',  # secret key
+    #     'access_key': 'AKID001',  # access key id
+    #     'secret_key': 'supersecret',  # secret key
     #     'algorithm': 'sha256'  # valid hmac algorithm eg. sha256, sha384, sha512
     # }
 ]  # type: List[Dict[str, Any]]
@@ -206,7 +206,7 @@ GOOGLE_TRACKING_ID = None
 AUTO_REFRESH_INTERVAL = 5000  # ms
 
 # Plugins
-PLUGINS = ['remote_ip', 'reject', 'heartbeat', 'blackout']
+PLUGINS = ['remote_ip', 'reject', 'heartbeat', 'blackout', 'forwarder']
 PLUGINS_RAISE_ON_ERROR = True  # raise RuntimeError exception on first failure
 
 # reject plugin settings
@@ -219,3 +219,12 @@ BLACKOUT_DURATION = 3600  # default period = 1 hour
 NOTIFICATION_BLACKOUT = False  # True - set alert status=blackout, False - do not process alert (default)
 BLACKOUT_ACCEPT = []  # type: List[str]
 # BLACKOUT_ACCEPT = ['normal', 'ok', 'cleared']  # list of severities accepted during blackout period
+
+# northbound interface
+FWD_DESTINATIONS = [
+    # ('http://localhost:9000', {'username': 'user', 'password': 'pa55w0rd', 'timeout': 10}, ['fwd', 'actions']),  # BasicAuth
+    # ('https://httpbin.org/anything', dict(username='foo', password='bar', ssl_verify=False), ['fwd', 'actions']),
+    # ('http://localhost:9000', {'key': 'access-key', 'secret': 'secret-key'}, ['fwd', 'actions']),  # Hawk HMAC
+    # ('http://localhost:9000', {'key': 'my-api-key'}, ['fwd', 'actions']),  # API key
+    # ('http://localhost:9000', {'token': 'bearer-token'}, ['fwd', 'actions']),  # Bearer token
+]  # type: List[Tuple]
